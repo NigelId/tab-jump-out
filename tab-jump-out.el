@@ -3,7 +3,8 @@
 ;; Copyright (C) 2015 Zhang Kai Yu
 ;; Copyright (C) 2023 Michael Kleehammer
 ;;
-;; Version: 2.1.0
+;; Package-Version: 20251215.247
+;; Package-Revision: 6287177b67ce
 ;; Author: Zhang Kai Yu <yeannylam@gmail.com>
 ;; Maintainer: Michael Kleehammer <michael@kleehammer.com>
 ;; URL: https://github.com/mkleehammer/tab-jump-out
@@ -126,11 +127,12 @@
     ;; The filter ensures the key binding is only enabled when the cursor is on
     ;; one of the tab-jump-out-delimiters.  If you bind this to a different key,
     ;; be sure to copy the filter.
-    (define-key map [tab]
-      `(menu-item "" tab-jump-out
-        :filter ,(lambda (cmd)
-                   (when (tab-jump-out--on-delimiter-p)
-                     cmd))))
+    (dolist (key '([tab] "\t"))
+      (define-key map key
+        `(menu-item "" tab-jump-out
+                :filter ,(lambda (cmd)
+                  (when (tab-jump-out--on-delimiter-p)
+                          cmd)))))
     map)
   "Keymap for `tab-jump-out-mode'.")
 
